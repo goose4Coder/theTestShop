@@ -13,10 +13,11 @@ class Customer(models.Model):
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=150, null=True)
+    name = models.CharField(max_length=150,null=False)
     price = models.DecimalField(max_digits=5,decimal_places=2) #change in real projects for DecimalField(max_digits=5,decimal_places=2)!
     digital = models.BooleanField(default=False)
     image = models.ImageField(null=True, blank=True)
+    description = models.TextField(null=False, blank=False,default="No description")
 
     def __str__(self):
         return self.name

@@ -7,7 +7,64 @@
     <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
     <title>{% block title %}{% endblock %}</title>
   </head>
+  <style media="screen">
+  #cart-total{
+  display: inline-block;
+  text-align: center;
+  color:#fff;
+  background-color: red;
+  width: 16px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 14px;
+  margin-left: 0px;
+  margin-top: 4px;
+  }
+  @media (min-width:576px) {
+    #cart-total{
+    display: inline-block;
+    text-align: center;
+    color:#fff;
+    background-color: red;
+    width: 16px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 14px;
+    margin-left: -9px;
+    margin-top: 4px;
+    }
+  }
+  .right{
+  margin-left: 20px;
+  }
+  .nav-item{
+    display: flex;
+    flex-direction: row;
+  }
+  </style>
   <body>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-success">
+    <div class="container-fluid">
+      <a class="navbar-brand " href="">Udu</a>
+      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+      aria-controls="navbarContent" aria-expanded="false" type="button" aria-label="Toggle navigation" >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item ">
+              <a class="nav-link active" href="/">home</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="/">cart</a>
+              <p id="cart-total" class="">0</p>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+
+  </nav>
   {% block content %}{% endblock %}
   </body>
 </html>
