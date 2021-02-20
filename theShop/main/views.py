@@ -22,7 +22,7 @@ class Index(Store):
         context['title']='home'
         return context
     def get_queryset(self):
-        return Product.order_by('-price')[:5]
+        return Product.objects.order_by('-price')[:5]
 class Products(Store):
     def get_context_data(self,object_list=None,**kwargs):
         context= super().get_context_data(**kwargs)

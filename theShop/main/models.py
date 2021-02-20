@@ -78,3 +78,19 @@ class ShippingAddress(models.Model):
 
     def __str__(self):
         return self.address
+
+class Report(models.Model):
+    shipping_model= models.ForeignKey(ShippingAddress,on_delete=models.PROTECT)
+    order = models.ForeignKey(Order,on_delete=models.PROTECT,null=True,default="not defined!")
+    address = models.CharField(max_length=200, null=False,default="not defined!")
+    city = models.CharField(max_length=200, null=False,default="not defined!")
+    state = models.CharField(max_length=200, null=False,default="not defined!")
+    zipcode = models.CharField(max_length=200, null=False,default="not defined!")
+    date_added = models.DateTimeField(auto_now_add=False)
+    def update_values(self):
+        self.order=self.shipping_model.order
+        self.address=self.shipping_model.address
+        self.city=self.shipping_model.city
+        self.state=self.shipping_model.state
+        self.zipcode=self.shipping_model.zipcode
+        self.date_added=self.shipping_model.date_added
