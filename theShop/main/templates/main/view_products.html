@@ -3,23 +3,26 @@
 
 {% block content %}
 {% load static %}
-{% for i in dataSet %}
+<div class="product_list">
+	{% for i in dataSet %}
 
-<br>
-<div class="card right"style="width:480px;">
-	{% if i.image %}
-	<img class="thumbnail" src="{{ i.image }}">
-	{% else %}
-	<img class="thumbnail" src="{% static 'images/placeholder.png' %}">
-	{% endif %}
-	<div class="box-element product">
-		<p class="card-title big-title"><strong>{{i.name}}</strong></p>
-		<button  class="btn btn-outline-secondary add-btn update-cart" data-product="{{i.id}}" data-action="add" id="update">Add to Cart</button>
-		<a class="btn btn-outline-success" href="#">View</a>
-		<h4 style="display: inline-block;"><strong>${{i.price|floatformat:2}}</strong></h4>
+	<br>
+	<div class="card flex-element">
+		{% if i.image %}
+		<img class="thumbnail" src="{{ i.image }}">
+		{% else %}
+		<img class="thumbnail" src="{% static 'images/placeholder.png' %}">
+		{% endif %}
+		<div class="box-element product">
+			<p class="card-title big-title"><strong>{{i.name}}</strong></p>
+			<button  class="btn btn-outline-secondary add-btn update-cart" data-product="{{i.id}}" data-action="add" id="update">Add to Cart</button>
+			<a class="btn btn-outline-success" href="#">View</a>
+			<h4 style="display: inline-block;"><strong>${{i.price|floatformat:2}}</strong></h4>
 
+		</div>
 	</div>
+	<br>
+	{% endfor %}
 </div>
-<br>
-{% endfor %}
+
 {% endblock %}

@@ -5,6 +5,53 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <script>
+    let user='{{user}}'
+    function getToken(name) {
+		    let cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        let cookies = document.cookie.split(';');
+		        for (let i = 0; i < cookies.length; i++) {
+		            let cookie = cookies[i].trim();
+		            // Does this cookie string begin with the name we want?
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+		        }
+		    }
+		    return cookieValue;
+		}
+		let csrftoken = getToken('csrftoken')
+    var cart = JSON.parse(getCookie('cart'));
+
+    if (cart == undefined){
+      cart = {}
+      console.log('Cart Created!', cart)
+      document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+    }
+    function getCookie(name) {
+    // Split cookie string and get all individual name=value pairs in an array
+    var cookieArr = document.cookie.split(";");
+
+    // Loop through the array elements
+    for(var i = 0; i < cookieArr.length; i++) {
+        var cookiePair = cookieArr[i].split("=");
+
+        /* Removing whitespace at the beginning of the cookie name
+        and compare it with the given string */
+        if(name == cookiePair[0].trim()) {
+            // Decode the cookie value and return
+            return decodeURIComponent(cookiePair[1]);
+        }
+    }
+
+    // Return null if not found
+    return null;
+    }
+    console.log('Cart:', cart)
+    </script>
+    <script defer src="{% static 'js/cart.js' %}"></script>
     <title>{% block title %}{% endblock %}</title>
   </head>
   <style media="screen">
@@ -35,10 +82,23 @@
     }
   }
   .thumbnail{
-    width: 480px;
-    height: 232.5px;
+    width: 360px;
+    height: 174.175px;
   }
-  .right{
+  .card{
+  width:360px;
+  }
+  @media(min-width:514px){
+    .thumbnail{
+      width: 480px;
+      height: 232.5px;
+    }
+    .card{
+    width:480px;
+    }
+  }
+  .flex-element{
+  margin-top: 20px;
   margin-left: 20px;
   }
   .nav-item{
@@ -46,7 +106,12 @@
     flex-direction: row;
   }
   .big-title{
-  font-size: 25px; 
+  font-size: 25px;
+  }
+  .product_list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
   </style>
   <body>
@@ -64,7 +129,7 @@
           </li>
           <li class="nav-item">
               <a class="nav-link" href="/">cart</a>
-              <p id="cart-total" class="">0</p>
+              <p id="cart-total" class="">{{ cart_items }}</p>
           </li>
         </ul>
 
