@@ -1,0 +1,7 @@
+Hi!
+
+To activate your account you should follow this link.
+
+{{ link }}
+
+The token expires on {{ expiry|time:"TIME_FORMAT" }}

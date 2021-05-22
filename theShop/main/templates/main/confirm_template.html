@@ -1,0 +1,12 @@
+{% extends 'main/base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+{% load static %}
+
+<h2>{{message}}</h2>
+{% if succes == True %}
+<img src="{% static 'images/succes.png' %}" alt="">
+{% else %}
+<img src="{% static 'images/error.png' %}" alt="">
+{% endif %}
+{% endblock %}

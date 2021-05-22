@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = key.csrf
+SECRET_KEY = key.theKey
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -115,8 +116,19 @@ USE_L10N = True
 
 USE_TZ = True
 
+EMAIL_HOST_USER = key.mail
+DEFAULT_FROM_EMAIL=key.mail
+EMAIL_HOST_PASSWORD = key.password
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_MAIL_HTML = 'main/message.html'
+EMAIL_PAGE_TEMPLATE = 'main/confirm_template.html'
+EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000'
+LOGIN_URL = '/login/'
 
 # Static files (CSS, JavaScript, Images)
+
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'

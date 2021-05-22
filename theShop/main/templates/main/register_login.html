@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+{% load static %}
+<div class="card user_form" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title text-primary">{{name}}</h5>
+    <form class="" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" class="btn btn-primary" value="submit">
+    </form>
+  </div>
+</div>
+{% endblock %}

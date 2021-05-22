@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+{% load static %}
+
+<h5>
+  {% if success %}
+  {{ user.username }}, your account is confirmed!
+  {% else %}
+  Error, invalid token!
+  {% endif %}
+</h5>
+
+{% endblock %}
