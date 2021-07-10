@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse_lazy
+from django.conf import settings
 
 
 class Customer(models.Model):
@@ -9,7 +11,7 @@ class Customer(models.Model):
     mail = models.EmailField(null=True)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class Product(models.Model):
@@ -18,9 +20,17 @@ class Product(models.Model):
     digital = models.BooleanField(default=False)
     image = models.ImageField(null=True, blank=True)
     description = models.TextField(null=False, blank=False,default="No description")
+    quantity = models.IntegerField(default=0, null=False)
+    active = models.BooleanField(default=False)
+    class Meta:
+        ordering = ['-id']
+
+    @property
+    def get_image_url(self):
+        return format(settings.MEDIA_URL, self.image.url)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class Order(models.Model):
@@ -30,19 +40,10 @@ class Order(models.Model):
     complete = models.BooleanField(default=False)
     transaction_id = models.CharField(max_length=100, null=True)
 
-    @property
-    def shipping(self):
-        shipping = False
-        orderitems = self.orderitem_set.all()
-        for i in orderitems:
-            if i.product.digital == False:
-                shipping = True
-
-        return shipping
-
     def __str__(self):
         return str(self.id)
 
+    @property
     def get_cart_total(self):
         orderitems = self.orderitem_set.all()
         total = sum([item.get_total for item in orderitems])
@@ -77,16 +78,18 @@ class ShippingAddress(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.address
+        return str(self.address)
+
 
 class Report(models.Model):
     shipping_model= models.ForeignKey(ShippingAddress,on_delete=models.PROTECT)
-    order = models.ForeignKey(Order,on_delete=models.PROTECT,null=True,default="not defined!")
+    order = models.ForeignKey(Order, on_delete=models.PROTECT,null=True,default="not defined!")
     address = models.CharField(max_length=200, null=False,default="not defined!")
     city = models.CharField(max_length=200, null=False,default="not defined!")
     state = models.CharField(max_length=200, null=False,default="not defined!")
     zipcode = models.CharField(max_length=200, null=False,default="not defined!")
     date_added = models.DateTimeField(auto_now_add=False)
+
     def update_values(self):
         self.order=self.shipping_model.order
         self.address=self.shipping_model.address

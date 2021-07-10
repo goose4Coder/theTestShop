@@ -26,7 +26,9 @@ SECRET_KEY = key.theKey
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+]
 
 
 # Application definition
@@ -117,7 +119,7 @@ USE_L10N = True
 USE_TZ = True
 
 EMAIL_HOST_USER = key.mail
-DEFAULT_FROM_EMAIL=key.mail
+DEFAULT_FROM_EMAIL = key.mail
 EMAIL_HOST_PASSWORD = key.password
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -127,13 +129,15 @@ EMAIL_PAGE_TEMPLATE = 'main/confirm_template.html'
 EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000'
 LOGIN_URL = '/login/'
 
+STRIPE_PUBLISHABLE_KEY = key.STRIPE_PUBLISHABLE_KEY
+STRIPE_SECRET_KEY = key.STRIPE_SECRET_KEY
 # Static files (CSS, JavaScript, Images)
 
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'theShop/static')
+    os.path.join(BASE_DIR, 'theShop/static')
 ]
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

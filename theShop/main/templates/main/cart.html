@@ -1,0 +1,65 @@
+{% extends 'main/base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+{% load static %}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% if items %}
+<div class="cart-moving">
+	<a href="{% url 'index' %}" style="margin-left:1%;" class="" >
+		<button  class="btn btn-outline-secondary "><-back to shopping</button>
+	</a>
+	<a href="{% url 'checkout' %}" style="margin-left:0.5%;" class="" >
+		<button  class="btn btn-outline-success ">checkout-></button>
+	</a>
+</div>
+<div class="cart-row">
+	<div style="flex:0.2"></div>
+	<div style="flex:2"><strong>Item</strong></div>
+	<div style="flex:1"><strong>Price</strong></div>
+	<div style="flex:1"><strong>Quantity</strong></div>
+	<div style="flex:1"><strong>Total</strong></div>
+</div>
+
+{% else %}
+<h3 class="center-text">
+	There is nothing here
+</h3>
+{% endif %}
+
+
+{% for i in items %}
+
+			<div class="cart_flex">
+
+			<div  style="flex:2; margin-left:10px;">
+				{% if i.product.image %}
+				<img class="thumbnail"style="" src="{{ i.product.image.url }}">
+				{% else %}
+				<img class="thumbnail" src="{% static 'images/placeholder.png' %}">
+				{% endif %}
+				<p class=""><strong>{{i.product.name}}</strong></p>
+			</div >
+			<div style="flex:1">
+				<h4 style="display: inline-block;"><strong>Price:${{i.product.price|floatformat:2}}</strong></h4>
+			</div>
+			<br>
+			<div  style="flex:1">
+				<h4 style="display: inline-block;"><strong>Quantity:{{i.quantity }}</strong></h4>
+				<img class="arrow add-btn update-cart" data-product="{{i.product.id}}" data-action="remove" id="update" src="{% static 'images/arrow-down.png' %}">
+			<img class="arrow add-btn update-cart"data-product="{{i.product.id}}" data-action="add" id="update" src="{% static 'images/arrow-up.png' %}">
+			</div>
+			<div  style="flex:1">
+				<h4 style="display: inline-block;"><strong>Total price:${{i.get_total |floatformat:2}}</strong></h4>
+			</div>
+
+			</div>
+
+{% endfor %}
+
+{% endblock %}

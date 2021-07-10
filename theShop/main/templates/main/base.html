@@ -5,6 +5,7 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <script src="https://js.stripe.com/v3/"></script>
     <script>
     let user='{{user}}'
     function getToken(name) {
@@ -121,11 +122,63 @@
     margin-left: 10%;
     margin-top: 20px;
   }
+  .lowest_button{
+  margin-left: 15px;
+  margin-top: 20px;
+  }
+  .arrow{
+  height:10px;
+  width:10px;
+  }
+
+  .cart-row{
+      display: flex;
+      align-items: flex-stretch;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ececec;
+      padding-top: 10%;
+      flex-wrap: wrap;
+      opacity:0;
+   }
+
+
+  @media(min-width:940px){
+    .cart_flex{
+      display: flex;
+      flex-direction: row;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ececec;
+    }
+     .cart-row{
+      display: flex;
+      align-items: flex-stretch;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ececec;
+      padding-top: 10%;
+      flex-wrap: wrap;
+      opacity:1;
+   }
+  }
+  a{
+  text-decoration: none;
+  }
+  .cart-moving{
+  margin-top: 3.5%;
+  }
+  .center-text{
+  font-size:50px;
+  color:gray;
+  margin-top:5%;
+  margin-left:32%;
+  }
   </style>
   <body>
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand " href="">Udu</a>
+      <a class="navbar-brand " href="{% url 'index' %}">Udu</a>
       <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarContent"
       aria-controls="navbarContent" aria-expanded="false" type="button" aria-label="Toggle navigation" >
         <span class="navbar-toggler-icon"></span>
@@ -133,10 +186,10 @@
       <div class="collapse navbar-collapse" id="navbarContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item ">
-              <a class="nav-link active" href="/">home</a>
+              <a class="nav-link active" href="{% url 'index' %}">home</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="/">cart</a>
+              <a class="nav-link" href="{% url 'cart' %}">cart</a>
               <p id="cart-total" class="">{{ cart_items }}</p>
           </li>
         </ul>

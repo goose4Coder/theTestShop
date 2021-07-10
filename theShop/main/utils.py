@@ -1,5 +1,6 @@
 from .models import *
 
+
 def cartData(request):
     if request.user.is_authenticated:
         customer = request.user.customer
@@ -12,8 +13,8 @@ def cartData(request):
         # cartItems = cookieData['cartItems']
         # order = cookieData['order']
         # items = cookieData['items']
-        cartItems=0
-        items={}
-        order={}
+        cartItems = 0
+        items = {}
+        order = {}
 
     return {'cart_items': cartItems, 'order': order, 'items': items}

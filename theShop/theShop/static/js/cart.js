@@ -2,10 +2,10 @@ var updateBtns = window.document.querySelectorAll(".update-cart")
 
 for (i = 0; i < updateBtns.length; i++) {
   updateBtns[i].addEventListener('click', function(event){
-  console.log('ok');
   var productId = event.target.dataset.product;
   var action = event.target.dataset.action;
   console.log('productId:', productId, 'Action:', action);
+  console.log('uroboros:1');
   if (user == 'AnonymousUser'){
 			console.log('User is not authenticated');
 		}
@@ -14,7 +14,7 @@ for (i = 0; i < updateBtns.length; i++) {
       updateUserOrder(productId, action);
       addCookieItem(productId, action);
     }
-    // location.reload()
+
   })
 }
 
@@ -27,13 +27,16 @@ function updateUserOrder(productId, action){
 			method:'POST',
 			headers:{
 				'Content-Type':'application/json',
-        'X-CSRFToken':csrftoken,
+                'X-CSRFToken':csrftoken,
 			},
 			body:JSON.stringify({'productId':productId, 'action':action})
 		})
 		.then((response) => {
+		   location.reload();
 		   return response.json();
 		})
+
+
 		// .then((data) => {
 		//     console.log('Data:', data)
 		// });

@@ -1,7 +1,9 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django import forms
+from django.forms import ModelForm
 from captcha.fields import CaptchaField
+from .models import *
 
 
 class CustomUserForm(UserCreationForm):
@@ -16,10 +18,19 @@ class CustomUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'first_name' , 'last_name', 'password1','password2','email')
+
+
 class CustomLoginForm(AuthenticationForm):
     username=forms.CharField(max_length=30,label="Username",widget=forms.TextInput())
     password=forms.CharField(max_length=30,label="password",widget=forms.PasswordInput())
     captcha=CaptchaField()
+
     class Meta:
         model = User
         fields = ('username', 'password')
+
+
+class ShippingForm(ModelForm):
+    class Meta:
+        model = ShippingAddress
+        fields = ['address', 'city', 'state', 'zipcode']

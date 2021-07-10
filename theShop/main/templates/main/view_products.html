@@ -5,11 +5,12 @@
 {% load static %}
 <div class="product_list">
 	{% for i in dataSet %}
+	{% if i.active %}
 
 	<br>
 	<div class="card flex-element">
 		{% if i.image %}
-		<img class="thumbnail" src="{{ i.image }}">
+		<img class="thumbnail" src="{{ i.image.url }}">
 		{% else %}
 		<img class="thumbnail" src="{% static 'images/placeholder.png' %}">
 		{% endif %}
@@ -22,7 +23,22 @@
 		</div>
 	</div>
 	<br>
+	{% endif %}
 	{% endfor %}
+
 </div>
+	<div class="lowest_button">
+	{% if dataSet.has_previous %}
+	<a href="{% url 'view_products' number_minus %}" class="" >
+		<button  class="btn btn-outline-secondary " ><- previous page</button>
+	</a>
+	{% endif %}
+	{% if dataSet.has_next %}
+	<a href="{% url 'view_products' number_plus %}" style="margin-left:4px;" class="" >
+		<button  class="btn btn-outline-secondary ">next page -></button>
+	</a>
+	{% endif %}
+	</div>
 
 {% endblock %}
+
